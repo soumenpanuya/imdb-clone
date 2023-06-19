@@ -81,6 +81,7 @@ header .pro span{
 #watchlist{
     padding: 0 20px;
     font-weight: 550;
+    cursor: pointer;
     
 }
 #watchlist i{
@@ -131,7 +132,7 @@ main{
 #poster_container{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 #poster_container .poster_box{
     display: flex;
@@ -146,6 +147,7 @@ main{
 #poster_container .poster_box .poster{
     height: 70%;
     width: 100%;
+    cursor: pointer;
     
 }
 #poster_container .poster_box .poster img{
@@ -167,12 +169,14 @@ main{
     font-size: 15px;
 }
 .rating i{
-    padding: 0 10px;
+    padding-right: 10px;
     font-size: 12px;
     color: rgb(238, 203, 5);
 }
 #poster_container .poster_box .title{
     padding: 5px 15px ;
+    align-self: flex-start;
+    height: 50px;
 }
 #poster_container .poster_box .favourite{
     display: flex;
@@ -183,4 +187,5 @@ main{
     background-color: rgb(49, 46, 46);
     color: rgb(6, 127, 240);
     margin: 10px;
+    cursor: pointer;
 }
