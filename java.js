@@ -2,6 +2,7 @@ const input = document.getElementById('input_field');
 const post_container =document.getElementById('post_container');
 
 // pre search poster id.....
+
 const arr=['tt5971474',"tt3896198","tt12915716","tt5090568","tt1630029","tt4154796","tt10872600","tt13353462","tt1345836","tt10838180","tt0910970","tt1201607"];
 
 async function fetchdata(id){
