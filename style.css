@@ -37,12 +37,13 @@ header #menu_icon{
 /* search bar..... */
 #input_container{
     width: 52.6vw;
+    display: flex;
+    align-items: center;
     height: 30px;
     background-color: white;
     border-radius: 3px;
     overflow: hidden;
     position: relative;
-    /* background-color: red; */
    
 }#input_container span{
     color: rgb(104, 98, 98);
