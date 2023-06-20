@@ -10,6 +10,7 @@ const home =document.querySelector(".home");
 const arr=['tt5971474',"tt3896198","tt12915716","tt5090568","tt1630029","tt4154796","tt10872600","tt13353462","tt1345836","tt10838180"];
 const status1="+  Favourite";
 const status2="Remove";
+let print =1;
 
 
 // favourite list ....
@@ -21,22 +22,34 @@ let fav =[];
     await fetch(`https://www.omdbapi.com/?i=${id}&apikey=ad538ff1`).then((res)=>{
         return res.json();
     }).then((result)=>{
-        let after =document.createElement("div");
-                after.classList.add("poster_box");
+        console.log(result);
+        if(print ==1)
+        {
+
+            let after =document.createElement("div");
+                    after.classList.add("poster_box");
+                    
+                    after.innerHTML=`
+                    <div id="${id}" class="poster" onclick="show_details(this)">
+                        <img id="poster_img" src="${result.Poster}" alt="poster not available now">
+                    </div>
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <span id="movie_rating">${result.imdbRating}</span>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <div class="title">${result.Title}</div>
+                    <div id ="${id}" class="favourite" onclick="favourite_add(this)">${status}</div>`;
                 
-                after.innerHTML=`
-                <div id="${id}" class="poster">
-                    <img id="poster_img" src="${result.Poster}" alt="poster not available now">
-                </div>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <span id="movie_rating">${result.imdbRating}</span>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <div class="title">${result.Title}</div>
-                <div id ="${id}" class="favourite" onclick="favourite_add(this)">${status}</div>`;
-            
-                poster_container.appendChild(after);
+                    poster_container.appendChild(after);
+        }else{
+            post_container.innerHTML=`<div class="details">
+            <img class="detail_poster" src="${result.Poster}" alt="">
+            <div class="description"><h2>${result.Title}</h2><br><br>${result.Genre}<br><br>${result.Plot}<br><br>Directors :&nbsp &nbsp ${result.Director}<br><br>Actors  : &nbsp &nbsp${result.Actors}<br><br>Language : &nbsp &nbsp ${result.Language}<br><br>Released : &nbsp &nbsp ${result.Released}</div>
+            <div id="back" onclick="back()">Back</div>
+        </div>`
+
+        }
 
     }).catch((err)=>{
         console.log(err);
@@ -66,7 +79,7 @@ function searchid(name){
 
         for( let i=0;i<length;i++)
             {
-                fetchdata(result.Search[i].imdbID);
+                fetchdata(result.Search[i].imdbID,status1);
             }
         
     }).catch((err)=>{
@@ -127,5 +140,16 @@ favourite_list.onclick=()=>{
     render(fav,status2);
 }
 home.onclick=()=>{
+    print =1;
+    render(arr,status1);
+}
+function show_details(e){
+console.log(e.id);
+print=2;
+fetchdata(e.id);
+}
+
+function back(){
+    print =1;
     render(arr,status1);
 }
