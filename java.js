@@ -104,7 +104,6 @@ function favourite_add(element){
             {
                 index=i;
                 fav.splice(i,1);
-                savedata();
                 if(fav.length==0)
                 {
                     post_container.innerHTML='<h2>NO record found</h2>';
@@ -117,7 +116,6 @@ function favourite_add(element){
     }
     if(index==-1){
         fav.push(element.id);
-        savedata();
 
     }
 }
@@ -161,15 +159,3 @@ function back(){
     print =1;
     render(arr,status1);
 }
-
-function savedata() {
-    let str = JSON.stringify(fav);
-    localStorage.setItem("data", str);
-  }
-  
-  /// initialize app.....
-  
-  (function getrdata() {
-    let list = localStorage.getItem("data");
-    fav = JSON.parse(list);
-  })();
