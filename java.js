@@ -2,16 +2,21 @@ const input = document.getElementById('input_field');
 const post_container =document.getElementById('poster_container');
 const search = document.getElementById("search_icon");
 const favourite_list = document.getElementById("watchlist");
+const plus = document.querySelector(".plus");
+const home =document.querySelector(".home");
 
 // pre search poster id.....
 
-const arr=['tt5971474',"tt3896198","tt12915716","tt5090568","tt1630029","tt4154796","tt10872600","tt13353462","tt1345836","tt10838180","tt0910970","tt1201607"];
+const arr=['tt5971474',"tt3896198","tt12915716","tt5090568","tt1630029","tt4154796","tt10872600","tt13353462","tt1345836","tt10838180"];
+const status1="+  Favourite";
+const status2="Remove";
+
 
 // favourite list ....
 let fav =[];
 
 // show movie using id....
- async function fetchdata(id){
+ async function fetchdata(id,status){
 
     await fetch(`https://www.omdbapi.com/?i=${id}&apikey=ad538ff1`).then((res)=>{
         return res.json();
@@ -20,7 +25,7 @@ let fav =[];
                 after.classList.add("poster_box");
                 
                 after.innerHTML=`
-                <div class="poster">
+                <div id="${id}" class="poster">
                     <img id="poster_img" src="${result.Poster}" alt="poster not available now">
                 </div>
                 <div class="rating">
@@ -29,7 +34,7 @@ let fav =[];
                     <i class="fa-regular fa-star"></i>
                 </div>
                 <div class="title">${result.Title}</div>
-                <div id ="${id}" class="favourite" onclick="favourite_add(this)">+ Favourite</div>`;
+                <div id ="${id}" class="favourite" onclick="favourite_add(this)">${status}</div>`;
             
                 poster_container.appendChild(after);
 
@@ -39,14 +44,15 @@ let fav =[];
 }
 
 // render movie list....
-function render(arr){
+function render(arr,status){
     post_container.innerHTML="";
     arr.forEach((id)=>{
-        fetchdata(id);
+        fetchdata(id,status);
     })
  }
 
-render(arr);
+//  initialize render list....
+render(arr,status1);
 
 
 // search movie id function...
@@ -72,16 +78,30 @@ function searchid(name){
 }
 
 function favourite_add(element){
-    let present=false;
-    fav.forEach((id)=>{
-        if(id==element.id)
-        {
-            alert("already added this movie...");
-            present=true;
-            return;
+
+    let index =-1;
+    for(let i=0;i<fav.length;i++)
+    {
+        if(fav[i]==element.id){
+            if(element.textContent==status1)
+            {
+                alert("already added this movie...");
+                return;
+            }else if(element.textContent==status2)
+            {
+                index=i;
+                fav.splice(i,1);
+                if(fav.length==0)
+                {
+                    render(arr,status1)
+                }else{
+
+                    render(fav,status2);
+                }
+            }
         }
-    })
-    if(!present){
+    }
+    if(index==-1){
         fav.push(element.id);
     }
 }
@@ -104,5 +124,8 @@ document.onkeyup= (e)=>{
 }
 
 favourite_list.onclick=()=>{
-    render(fav);
+    render(fav,status2);
+}
+home.onclick=()=>{
+    render(arr,status1);
 }
