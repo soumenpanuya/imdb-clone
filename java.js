@@ -22,7 +22,6 @@ let fav =[];
     await fetch(`https://www.omdbapi.com/?i=${id}&apikey=ad538ff1`).then((res)=>{
         return res.json();
     }).then((result)=>{
-        console.log(result);
         if(print ==1)
         {
 
@@ -106,7 +105,7 @@ function favourite_add(element){
                 fav.splice(i,1);
                 if(fav.length==0)
                 {
-                    render(arr,status1)
+                    post_container.innerHTML='<h2>NO record found</h2>';
                 }else{
 
                     render(fav,status2);
@@ -137,14 +136,19 @@ document.onkeyup= (e)=>{
 }
 
 favourite_list.onclick=()=>{
-    render(fav,status2);
+    if(fav.length==0)
+    {
+        post_container.innerHTML='<h2>NO record found</h2>';
+    }else{
+
+        render(fav,status2);
+    }
 }
 home.onclick=()=>{
     print =1;
     render(arr,status1);
 }
 function show_details(e){
-console.log(e.id);
 print=2;
 fetchdata(e.id);
 }
