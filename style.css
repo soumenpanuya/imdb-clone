@@ -206,6 +206,7 @@ main{
     justify-content: center;
     align-items: center;
     position: relative;
+    
 }
 #poster_container .details img{
     width: 300px;
@@ -214,10 +215,8 @@ main{
     border: none;
 }
 #poster_container .details .description {
-    /* width:500px ; */
     max-height: 100%;
-    /* background-color: blue; */
-    padding: 20px;
+    padding: 0 10px 40px;
     font-size: 20px;
     line-height: 20px;
 }
@@ -240,4 +239,13 @@ main{
     left: 55%;
     bottom: 10px;
     cursor: pointer;
+    box-shadow: 2px 2px 15px rgb(223, 176, 176);
+}
+
+#diolog_box{
+    height: 200px;
+    width: 600px;
+    background-color: red;
+    position: absolute;
+    top: 0;
 }
